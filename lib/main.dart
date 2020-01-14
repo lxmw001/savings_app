@@ -24,9 +24,13 @@ class _MyAppState extends State<MyApp> {
           if(_loggedIn) {
             return HomePage(title: "Home");
           } else {
-            return LoginPage();
+            return LoginPage(onLoginSuccess: () => {
+              setState(() {
+                _loggedIn = true;
+              })
+            },);
           }
-        }
+        },
       },
     );
   }
