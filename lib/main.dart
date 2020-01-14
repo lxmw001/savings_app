@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (BuildContext context) {
           if(_loggedIn) {
-            return HomePage(title: "Home page");
+            return HomePage(title: "Home");
           } else {
             return LoginPage();
           }
