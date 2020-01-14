@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../widgets/FormCard.dart';
 import '../widgets/SocialIcons.dart';
 import '../CustomIcons.dart';
-import './HomePage.dart';
+import '../states/LoginState.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.onLoginSuccess}) : super(key: key);
-  final Function onLoginSuccess;
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -23,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _signin() {
-    widget.onLoginSuccess();
+    Provider.of<LoginState>(context).login();
   }
 
   Widget radioButton(bool isSelected) => Container(
