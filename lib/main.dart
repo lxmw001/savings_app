@@ -30,34 +30,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//
-//class _MyAppState extends State<MyApp> {
-//  bool _loggedIn = false;
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return ChangeNotifierProvider<LoginState>(
-//      builder: (BuildContext context) => LoginState(),
-//      child: MaterialApp(
-//        title: 'Flutter Demo',
-//        theme: ThemeData(
-//          primarySwatch: Colors.blue,
-//        ),
-//        routes: {
-//          '/': (BuildContext context) {
-//            if (_loggedIn) {
-//              return HomePage(title: "Home");
-//            } else {
-//              return LoginPage(onLoginSuccess: () =>
-//              {
-//                setState(() {
-//                  _loggedIn = true;
-//                })
-//              },);
-//            }
-//          },
-//        },
-//      ),
-//    );
-//  }
-//}
+
