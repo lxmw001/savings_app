@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/SideMenu.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: SideMenu(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
