@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/SideMenu.dart';
+import '../widgets/DashboardBox.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -29,13 +30,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            DashboardBox(title: "Capital", value: 30)
           ],
         ),
       ),

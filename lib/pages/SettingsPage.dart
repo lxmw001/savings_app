@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/SideMenu.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
