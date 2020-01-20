@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class PartnerItem extends StatelessWidget {
-  final String text;
-  final IconData icon;
+  final String name;
+  final String position;
   final Function onTap;
 
-  PartnerItem({this.text, this.icon, this.onTap});
+  PartnerItem({this.name, this.position, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +26,16 @@ class PartnerItem extends StatelessWidget {
                               width: 1.0, color: Colors.white24)
                       )
                   ),
-                  child: Icon(Icons.autorenew, color: Colors.white),
+                  child: Icon(Icons.person_outline, color: Colors.white),
                 ),
-                title: Text("Introduction to Driving",
+                title: Text(this.name,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 subtitle: Row(
                   children: <Widget>[
                     Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                    Text(" Intermediate", style: TextStyle(color: Colors.white))
+                    Text(" " + this.position, style: TextStyle(color: Colors.white))
                   ],
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right, color: Colors.white,

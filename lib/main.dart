@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) {
             var state = Provider.of<LoginState>(context);
             if (state.isLoggedIn()) {
-              return HomePage(title: "Home");
+              return HomePage();
             } else {
               return LoginPage();
             }

@@ -30,7 +30,7 @@ class _PartnerPageState extends State<PartnerPage> {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-          return PartnerItem();
+          return PartnerItem(name: 'Luis', position: 'Presidente', onTap: () => {});
         },
       ),
       floatingActionButton: FloatingActionButton(

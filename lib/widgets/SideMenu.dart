@@ -23,12 +23,14 @@ class SideMenu extends StatelessWidget {
               text: 'Home',
               icon: Icons.home,
               onTap: () {
+                //back to the main page
                 Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            HomePage(title: "Home from menu")));
+                            HomePage())
+                );
               }),
           MenuItem(
               text: 'Socios',
