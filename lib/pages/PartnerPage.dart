@@ -29,7 +29,7 @@ class _PartnerPageState extends State<PartnerPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => Navigator.pushNamed(context, 'addPartner'),
         tooltip: 'Nuevo Socio',
         child: Icon(Icons.add),
       ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'pages/LoginPage.dart';
-import 'pages/HomePage.dart';
-import 'pages/LoanPage.dart';
-import 'pages/PartnerPage.dart';
-import 'pages/SettingsPage.dart';
-import 'states/LoginState.dart';
+import 'package:savings_app/pages/AddLoanPage.dart';
+import 'package:savings_app/pages/AddPartnerPage.dart';
+import 'package:savings_app/pages/HomePage.dart';
+import 'package:savings_app/pages/LoanPage.dart';
+import 'package:savings_app/pages/LoginPage.dart';
+import 'package:savings_app/pages/PartnerPage.dart';
+import 'package:savings_app/pages/SettingsPage.dart';
+import 'package:savings_app/states/LoginState.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,6 +48,8 @@ class MyApp extends StatelessWidget {
             }
           },
           'settings': (BuildContext context) => SettingsPage(),
+          'addPartner': (BuildContext context) => AddPartnerPage(),
+          'addLoan': (BuildContext context) => AddLoanPage(),
         },
       ),
     );

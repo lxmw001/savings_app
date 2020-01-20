@@ -28,7 +28,7 @@ class _LoanPageState extends State<LoanPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () =>  Navigator.pushNamed(context, 'addLoan'),
         tooltip: 'Nuevo Prestamo',
         child: Icon(Icons.add),
       ),

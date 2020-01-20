@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../pages/PartnerPage.dart';
-import '../pages/HomePage.dart';
-import '../pages/LoanPage.dart';
-import '../pages/SettingsPage.dart';
 import '../states/LoginState.dart';
 import './MenuItem.dart';
 
@@ -31,7 +27,6 @@ class SideMenu extends StatelessWidget {
               text: 'Socios',
               icon: Icons.people,
               onTap: () {
-//                Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(context, 'partners', (route) => false);
               }),
           MenuItem(
@@ -55,7 +50,6 @@ class SideMenu extends StatelessWidget {
                     text: 'Ajustes',
                     icon: Icons.settings,
                     onTap: () {
-                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'settings');
                     })),
           ),
