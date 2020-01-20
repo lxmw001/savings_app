@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../pages/PartnerPage.dart';
 import '../pages/HomePage.dart';
 import '../pages/LoanPage.dart';
 import '../pages/SettingsPage.dart';
+import '../states/LoginState.dart';
 import './MenuItem.dart';
 
 class SideMenu extends StatelessWidget {
@@ -23,22 +25,14 @@ class SideMenu extends StatelessWidget {
               text: 'Home',
               icon: Icons.home,
               onTap: () {
-                //back to the main page
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            HomePage())
-                );
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
               }),
           MenuItem(
               text: 'Socios',
               icon: Icons.people,
               onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PartnerPage()));
+//                Navigator.pop(context);
+                Navigator.pushNamedAndRemoveUntil(context, 'partners', (route) => false);
               }),
           MenuItem(
               text: 'Cuotas',
@@ -51,8 +45,7 @@ class SideMenu extends StatelessWidget {
               icon: Icons.monetization_on,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoanPage()));
+                Navigator.pushNamedAndRemoveUntil(context, 'loans', (route) => false);
               }),
           Divider(),
           Expanded(
@@ -63,12 +56,13 @@ class SideMenu extends StatelessWidget {
                     icon: Icons.settings,
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsPage()));
+                      Navigator.pushNamed(context, 'settings');
                     })),
-          )
+          ),
+          MenuItem(
+              text: 'Salir',
+              icon: Icons.exit_to_app,
+              onTap: () => Provider.of<LoginState>(context).logout())
         ],
       ),
     );

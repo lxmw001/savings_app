@@ -9,12 +9,7 @@ class PartnerPage extends StatefulWidget {
 
 class _PartnerPageState extends State<PartnerPage> {
 
-  List<ListItem> items = List<ListItem>.generate(
-  10,
-  (i) => i % 6 == 0
-  ? HeadingItem("Heading $i")
-      : MessageItem("Sender $i", "Message body $i"),
-  );
+  var items = new List<int>.generate(10, (i) => i + 1);
   //Change for Partner class
 
   @override
@@ -40,21 +35,4 @@ class _PartnerPageState extends State<PartnerPage> {
       ),
     );
   }
-}
-
-abstract class ListItem {}
-
-// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-}
-
-// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
 }

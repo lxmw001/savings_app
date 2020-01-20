@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/widgets/LoanItem.dart';
 import '../widgets/SideMenu.dart';
 
 class LoanPage extends StatefulWidget {
@@ -7,6 +8,8 @@ class LoanPage extends StatefulWidget {
 }
 
 class _LoanPageState extends State<LoanPage> {
+  var items = new List<int>.generate(10, (i) => i + 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,15 +17,15 @@ class _LoanPageState extends State<LoanPage> {
         title: Text('Prestamos'),
       ),
       drawer: SideMenu(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Prestamos Page',
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return LoanItem(
+              value: 300, interest: 3, paymentsNumber: 3, onTap: () => {});
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},
