@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:savings_app/constants/LoanTypes.dart';
+import 'package:savings_app/model/Loan.dart';
+import 'package:savings_app/model/LoanInterest.dart';
 
 class AddLoanPage extends StatefulWidget {
   @override
@@ -8,12 +11,16 @@ class AddLoanPage extends StatefulWidget {
 
 class _AddLoanPageState extends State<AddLoanPage> {
   String partner; // TODO: change it for Partner
-  String total = "";
-  int paymentsNumber = 3;
-  String type = "INTERNAL"; //TODO: user constants
+//  double value = 0;
+//  int paymentsNumber = 3;
+//  String type = LoanTypes.INTERNAL; //TODO: use constants
+  Loan loan = new Loan();
+  LoanInterest interest = new LoanInterest(LoanTypes.INTERNAL, 0);
 
   final key = GlobalKey<FormState>();
   final partners = ['Luis', 'Andrea', 'Samara'];
+
+  _AddLoanPageState() : this.loan = new Loan(), ;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +67,9 @@ class _AddLoanPageState extends State<AddLoanPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => total = value,
+                    onSaved: (newValue) => loan.setValue(double.tryParse(newValue)),
                     decoration: InputDecoration(
-                      labelText: 'Total',
+                      labelText: 'Valor',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     keyboardType: TextInputType.number,
@@ -74,6 +81,9 @@ class _AddLoanPageState extends State<AddLoanPage> {
                 ListTile(
                   title: TextFormField(
                     onSaved: (value) => paymentsNumber = int.tryParse(value),
+                    onChanged: (value) {
+
+                    },
                     decoration: InputDecoration(
                       labelText: 'Numero de cuotas',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -96,7 +106,7 @@ class _AddLoanPageState extends State<AddLoanPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Radio(
-                            value: 'INTERNAL',
+                            value: LoanTypes.INTERNAL,
                             groupValue: type,
                             onChanged: (value) { setState(() => type = value);},
                           ),
@@ -105,7 +115,7 @@ class _AddLoanPageState extends State<AddLoanPage> {
                             style: new TextStyle(fontSize: 16.0),
                           ),
                           new Radio(
-                            value: 'EXTERNAL',
+                            value: LoanTypes.EXTERNAL,
                             groupValue: type,
                             onChanged: (value) { setState(() => type = value);},
                           ),

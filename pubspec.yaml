@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_screenutil: ^0.4.2
   provider: ^2.0.1
+  lombok: ^0.0.5
 
 dev_dependencies:
   flutter_test:
