@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/model/Partner.dart';
 
 class AddPartnerPage extends StatefulWidget {
   @override
@@ -55,7 +56,8 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      //Partner partner = new Partner(name, phoneNumber, email);
+                      Partner partner = new Partner(name: name, phoneNumber: phoneNumber, email: email);
+                      //save in firebase
                       Navigator.pop(context);
                     },
                   ),
