@@ -10,17 +10,31 @@ class AddLoanPage extends StatefulWidget {
 }
 
 class _AddLoanPageState extends State<AddLoanPage> {
+
   String partner; // TODO: change it for Partner
 //  double value = 0;
 //  int paymentsNumber = 3;
 //  String type = LoanTypes.INTERNAL; //TODO: use constants
-  Loan loan = new Loan();
-  LoanInterest interest = new LoanInterest(LoanTypes.INTERNAL, 0);
+  double paymentValue = 0;
+  Loan loan;
+  static LoanInterest interest1 = new LoanInterest(LoanTypes.INTERNAL, 3);
+  static LoanInterest interest2 = new LoanInterest(LoanTypes.EXTERNAL, 7);
 
   final key = GlobalKey<FormState>();
   final partners = ['Luis', 'Andrea', 'Samara'];
 
-  _AddLoanPageState() : this.loan = new Loan(), ;
+  _AddLoanPageState() : this.loan = new Loan(interest: interest1);
+
+  changeInterest(LoanInterest interest) {
+    loan.setInterest(interest);
+    updatePaymentValue();
+  }
+
+  updatePaymentValue() {
+    loan.calculatePaymentsValue();
+    print(loan.getPaymentValue());
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +81,11 @@ class _AddLoanPageState extends State<AddLoanPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    onSaved: (newValue) => loan.setValue(double.tryParse(newValue)),
+                    initialValue: loan.getValue().toString(),
+                    onChanged: (newValue) {
+                      loan.setValue(double.tryParse(newValue));
+                      updatePaymentValue();
+                    },
                     decoration: InputDecoration(
                       labelText: 'Valor',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -75,14 +93,15 @@ class _AddLoanPageState extends State<AddLoanPage> {
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       WhitelistingTextInputFormatter.digitsOnly
-                    ], // Only number
+                    ],
                   ),
                 ),
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => paymentsNumber = int.tryParse(value),
+                    initialValue: loan.getPaymentsNumber().toString(),
                     onChanged: (value) {
-
+                      loan.setPaymentsNumber(int.tryParse(value));
+                      updatePaymentValue();
                     },
                     decoration: InputDecoration(
                       labelText: 'Numero de cuotas',
@@ -106,18 +125,18 @@ class _AddLoanPageState extends State<AddLoanPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Radio(
-                            value: LoanTypes.INTERNAL,
-                            groupValue: type,
-                            onChanged: (value) { setState(() => type = value);},
+                            value: interest1,
+                            groupValue: loan.getInterest(),
+                            onChanged: changeInterest,
                           ),
                           new Text(
                             'Interno',
                             style: new TextStyle(fontSize: 16.0),
                           ),
                           new Radio(
-                            value: LoanTypes.EXTERNAL,
-                            groupValue: type,
-                            onChanged: (value) { setState(() => type = value);},
+                            value: interest2,
+                            groupValue: loan.getInterest(),
+                            onChanged: changeInterest,
                           ),
                           new Text(
                             'Externo',
@@ -129,6 +148,14 @@ class _AddLoanPageState extends State<AddLoanPage> {
                       ),
                     ],
                   ),
+                ),
+                ListTile(
+                  title: Text("Valor de la cuota"),
+                  subtitle: Text(loan.getPaymentValue().toString()),
+                ),
+                ListTile(
+                  title: Text("Total a pagar"),
+                  subtitle: Text(loan.calculateValueToPay().toString()),
                 ),
                 ListTile(
                   title: RaisedButton(

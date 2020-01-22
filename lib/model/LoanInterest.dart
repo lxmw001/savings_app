@@ -6,4 +6,8 @@ class LoanInterest {
   int value;
 
   LoanInterest(this.type, this.value);
+
+  int getValue(){
+    return this.value;
+  }
 }
