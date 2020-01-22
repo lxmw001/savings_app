@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:savings_app/constants/LoanTypes.dart';
 import 'package:savings_app/model/Loan.dart';
 import 'package:savings_app/model/LoanInterest.dart';
+import 'package:savings_app/model/Partner.dart';
 
 class AddLoanPage extends StatefulWidget {
   @override
@@ -10,18 +11,15 @@ class AddLoanPage extends StatefulWidget {
 }
 
 class _AddLoanPageState extends State<AddLoanPage> {
-
-  String partner; // TODO: change it for Partner
-//  double value = 0;
-//  int paymentsNumber = 3;
-//  String type = LoanTypes.INTERNAL; //TODO: use constants
+  Partner partner;
   double paymentValue = 0;
   Loan loan;
+
   static LoanInterest interest1 = new LoanInterest(LoanTypes.INTERNAL, 3);
   static LoanInterest interest2 = new LoanInterest(LoanTypes.EXTERNAL, 7);
 
   final key = GlobalKey<FormState>();
-  final partners = ['Luis', 'Andrea', 'Samara'];
+  final partners = [new Partner(name: 'Luis'), new Partner(name: 'Andrea'), new Partner(name: 'Samara')];
 
   _AddLoanPageState() : this.loan = new Loan(interest: interest1);
 
@@ -56,13 +54,13 @@ class _AddLoanPageState extends State<AddLoanPage> {
                 ),
                 ListTile(
                   title: DropdownButtonFormField(
-                    items: partners.map((String partnerItem) {
+                    items: partners.map((Partner partnerItem) {
                       return new DropdownMenuItem(
                           value: partnerItem,
                           child: Row(
                             children: <Widget>[
                               Icon(Icons.star),
-                              Text(partnerItem),
+                              Text(partnerItem.getName()),
                             ],
                           ));
                     }).toList(),
@@ -162,7 +160,8 @@ class _AddLoanPageState extends State<AddLoanPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      //Partner partner = new Partner(name, phoneNumber, email);
+                      loan.setPartner(partner);
+                      //save in firebase
                       Navigator.pop(context);
                     },
                   ),

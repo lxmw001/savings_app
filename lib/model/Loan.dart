@@ -1,4 +1,5 @@
 import 'package:lombok/lombok.dart';
+import 'package:savings_app/model/Partner.dart';
 import './LoanInterest.dart';
 
 //not woks
@@ -11,6 +12,7 @@ class Loan {
   double debt;
   double paymentValue;
   LoanInterest interest;
+  Partner partner;
 
   Loan({this.interest}) {
     this.date = new DateTime.now();
@@ -61,5 +63,11 @@ class Loan {
     return this.paymentValue;
   }
 
+  void setPartner(partner) {
+    this.partner = partner;
+  }
 
+  Partner getPartner() {
+    return partner;
+  }
 }

@@ -13,11 +13,23 @@ class Partner {
     this.name = name;
   }
 
+  String getName() {
+    return name;
+  }
+
   void setPhoneNumber(phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 
+  String getPhoneNumber() {
+    return phoneNumber;
+  }
+
   void setEmail(email) {
     this.email = email;
+  }
+
+  String getEmail() {
+    return email;
   }
 }
