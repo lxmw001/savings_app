@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:savings_app/model/LoanInterest.dart';
 
-class SettingsState with ChangeNotifier {
-  LoanInterest internal;
-  LoanInterest external;
-  double monthlyPaymentValue;
-
-
-  LoanInterest getInternalInterest() => internal;
-  LoanInterest getExternalInterest() => external;
-  double getMonthlyPaymentValue() => monthlyPaymentValue;
-
+// TODO: convert to normal class
+// TODO: move to model class
+class SettingsState {
+  static LoanInterest internalInterest;
+  static LoanInterest externalInterest;
+  static double monthlyPaymentValue;
 }
