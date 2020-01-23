@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:savings_app/model/LoanInterest.dart';
+import 'package:savings_app/model/Settings.dart';
+import '../states/AppState.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -7,13 +10,19 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
 //  LoanInterest internal = new LoanInterest('Internal', )
-String internal;
-String external;
-double monthlyPaymentValue;
+  String internal;
+  String external;
+  double monthlyPaymentValue;
+  Settings settings = new Settings();
 
   final key = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    settings = Provider.of<AppState>(context).getSettings();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +30,16 @@ double monthlyPaymentValue;
       appBar: AppBar(
         title: Text('Ajustes'),
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Form(
             key: key,
             child: Column(
               children: <Widget>[
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => monthlyPaymentValue = double.parse(value),
+                    initialValue: settings.monthlyPaymentValue.toString(),
+                    onSaved: (value) =>
+                        monthlyPaymentValue = double.parse(value),
                     decoration: InputDecoration(
                       labelText: 'Cuota mensual',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -37,6 +48,7 @@ double monthlyPaymentValue;
                 ),
                 ListTile(
                   title: TextFormField(
+                    initialValue: settings.internalInterest.getValue().toString(),
                     onSaved: (value) => internal = value,
                     decoration: InputDecoration(
                       labelText: 'Interes interno',
@@ -46,6 +58,7 @@ double monthlyPaymentValue;
                 ),
                 ListTile(
                   title: TextFormField(
+                    initialValue: settings.externalInterest.getValue().toString(),
                     onSaved: (value) => external = value,
                     decoration: InputDecoration(
                       labelText: 'Interes externo',

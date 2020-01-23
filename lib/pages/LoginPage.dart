@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../widgets/FormCard.dart';
 import '../widgets/SocialIcons.dart';
 import '../CustomIcons.dart';
-import '../states/LoginState.dart';
+import '../states/AppState.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _signin() {
-    Provider.of<LoginState>(context).login();
+    Provider.of<AppState>(context).login();
   }
 
   Widget radioButton(bool isSelected) => Container(
@@ -119,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                                   fontSize: 12, fontFamily: "Poppins-Medium"))
                         ],
                       ),
-                      Consumer<LoginState>(
-                        builder: (BuildContext context, LoginState value,
+                      Consumer<AppState>(
+                        builder: (BuildContext context, AppState value,
                             Widget child) {
                           if (value.isLoading()) {
                             return CircularProgressIndicator();

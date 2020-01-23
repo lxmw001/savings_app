@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:savings_app/services/FirestoreService.dart';
-import 'package:savings_app/states/SettingsState.dart';
+import 'package:savings_app/model/Settings.dart';
 
-class LoginState with ChangeNotifier {
+class AppState with ChangeNotifier {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _loggedIn = false;
   bool _loading = false;
   FirebaseUser _user;
-  SettingsState _settings;
+  Settings _settings;
 
   bool isLoggedIn() => _loggedIn;
   bool isLoading() => _loading;
   FirebaseUser getCurrentUser() => _user;
+  Settings getSettings() => _settings;
 
   void login() async {
     _loading = true;
@@ -61,12 +62,17 @@ class LoginState with ChangeNotifier {
   Future<void> _getSettings() {
     FirestoreService.createService(_user.uid);
     var completer = new Completer<void>();
-    FirestoreService.getSettings().listen((data) {
-      print("DataReceived: " + data.data.toString());
+    FirestoreService.getSettings().listen((settings) {
+      print("Settings retreived: " + settings.data.toString());
       //set settings here
-
+      _settings = new Settings.fromJson(settings.data);
       completer.complete();
     });
     return completer.future;
+  }
+
+  void setSettings(settings) {
+    _settings = settings;
+    notifyListeners();
   }
 }

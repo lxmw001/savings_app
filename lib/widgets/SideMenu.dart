@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../states/LoginState.dart';
+import '../states/AppState.dart';
 import './MenuItem.dart';
 
 class SideMenu extends StatelessWidget {
@@ -56,7 +56,7 @@ class SideMenu extends StatelessWidget {
           MenuItem(
               text: 'Salir',
               icon: Icons.exit_to_app,
-              onTap: () => Provider.of<LoginState>(context).logout())
+              onTap: () => Provider.of<AppState>(context).logout())
         ],
       ),
     );

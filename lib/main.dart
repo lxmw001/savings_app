@@ -8,15 +8,15 @@ import 'package:savings_app/pages/LoanPage.dart';
 import 'package:savings_app/pages/LoginPage.dart';
 import 'package:savings_app/pages/PartnerPage.dart';
 import 'package:savings_app/pages/SettingsPage.dart';
-import 'package:savings_app/states/LoginState.dart';
+import 'package:savings_app/states/AppState.dart';
 
 void main() => runApp(MyConstants(child: MyApp()));//maybe remove MyConstants
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginState>(
-      builder: (BuildContext context) => LoginState(),
+    return ChangeNotifierProvider<AppState>(
+      builder: (BuildContext context) => AppState(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         routes: {
           // TODO: implement a secured route in utils
           '/': (BuildContext context) {
-            var state = Provider.of<LoginState>(context);
+            var state = Provider.of<AppState>(context);
             if (state.isLoggedIn()) {
               return HomePage();
             } else {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             }
           },
           'partners': (BuildContext context) {
-            var state = Provider.of<LoginState>(context);
+            var state = Provider.of<AppState>(context);
             if (state.isLoggedIn()) {
               return PartnerPage();
             } else {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             }
           },
           'loans': (BuildContext context) {
-            var state = Provider.of<LoginState>(context);
+            var state = Provider.of<AppState>(context);
             if (state.isLoggedIn()) {
               return LoanPage();
             } else {
