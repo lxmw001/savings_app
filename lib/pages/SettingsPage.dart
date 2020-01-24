@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:savings_app/model/LoanInterest.dart';
 import 'package:savings_app/model/Settings.dart';
 import '../states/AppState.dart';
 
@@ -10,7 +9,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-//  LoanInterest internal = new LoanInterest('Internal', )
   String internal;
   String external;
   double monthlyPaymentValue;
@@ -20,8 +18,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
+    settings = Provider.of<AppState>(context, listen: false).getSettings();
     super.initState();
-    settings = Provider.of<AppState>(context).getSettings();
   }
 
   @override
@@ -48,7 +46,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    initialValue: settings.internalInterest.getValue().toString(),
+                    initialValue:
+                        settings.internalInterest.getValue().toString(),
                     onSaved: (value) => internal = value,
                     decoration: InputDecoration(
                       labelText: 'Interes interno',
@@ -58,7 +57,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    initialValue: settings.externalInterest.getValue().toString(),
+                    initialValue:
+                        settings.externalInterest.getValue().toString(),
                     onSaved: (value) => external = value,
                     decoration: InputDecoration(
                       labelText: 'Interes externo',
@@ -71,8 +71,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-//                      Partner partner = new Partner(name: name, phoneNumber: phoneNumber, email: email);
+                      settings
+                          .getInternalInterest()
+                          .setValue(int.tryParse(internal));
+                      settings
+                          .getExternalInterest()
+                          .setValue(int.tryParse(external));
+                      settings.setMonthlyPaymentValue(monthlyPaymentValue);
+                      Provider.of<AppState>(context, listen: false)
+                          .setSettings(settings);
+
                       //save in firebase
+
                       Navigator.pop(context);
                     },
                   ),

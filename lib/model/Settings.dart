@@ -16,8 +16,12 @@ class Settings {
     return Settings(
         internalInterest: new LoanInterest(LoanTypes.INTERNAL, settingsMap['internalInterest']) ,
         externalInterest: new LoanInterest(LoanTypes.EXTERNAL, settingsMap['externalInterest']) ,
-        monthlyPaymentValue: settingsMap['monthlyPayment']
+        monthlyPaymentValue: double.tryParse(settingsMap['monthlyPayment'].toString())
     );
+  }
+
+  void setMonthlyPaymentValue(monthlyPaymentValue) {
+    this.monthlyPaymentValue = monthlyPaymentValue;
   }
 
   void setInternalInterest(internalInterest) {

@@ -7,6 +7,10 @@ class LoanInterest {
 
   LoanInterest(this.type, this.value);
 
+  void setValue(value) {
+    this.value = value;
+  }
+
   int getValue(){
     return this.value;
   }
