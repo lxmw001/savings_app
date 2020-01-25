@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:savings_app/constants/MyConstants.dart';
 import 'package:savings_app/pages/AddLoanPage.dart';
 import 'package:savings_app/pages/AddPartnerPage.dart';
 import 'package:savings_app/pages/HomePage.dart';
@@ -10,7 +9,7 @@ import 'package:savings_app/pages/PartnerPage.dart';
 import 'package:savings_app/pages/SettingsPage.dart';
 import 'package:savings_app/states/AppState.dart';
 
-void main() => runApp(MyConstants(child: MyApp()));//maybe remove MyConstants
+void main() => runApp(MyApp());//maybe remove MyConstants
 
 class MyApp extends StatelessWidget {
   @override
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
           },
           'settings': (BuildContext context) => SettingsPage(),
           'addPartner': (BuildContext context) => AddPartnerPage(),
-          'addLoan': (BuildContext context) => AddLoanPage(),
+          'addLoan': (BuildContext context) =>  AddLoanPage(),
         },
       ),
     );

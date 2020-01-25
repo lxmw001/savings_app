@@ -18,7 +18,8 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
   @override
   Widget build(BuildContext context) {
     partner = ModalRoute.of(context).settings.arguments;
-    bool isNewPartner = partner == null;
+    print(partner.getId());
+    bool isNewPartner = partner.getId() == null;
 
     return Scaffold(
       appBar: AppBar(

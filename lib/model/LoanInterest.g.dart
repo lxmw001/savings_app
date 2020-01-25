@@ -8,8 +8,8 @@ part of 'LoanInterest.dart';
 
 LoanInterest _$LoanInterestFromJson(Map<String, dynamic> json) {
   return LoanInterest(
-    json['type'] as String,
-    json['value'] as int,
+    type: json['type'] as String,
+    value: json['value'] as int,
   );
 }
 

@@ -15,7 +15,15 @@ class Partner extends BasicModel with _$PartnerLombok {
   Partner({this.name = '', this.phoneNumber = '', this.email = ''});
 
   factory Partner.fromJson(Map<String, dynamic> json) =>
-      _$PartnerFromJson(json);
+    _$PartnerFromJson(json);
 
   Map<String, dynamic> toJson() => _$PartnerToJson(this);
+
+  static Partner partnerFromId(String id) {
+    Partner partner = new Partner();
+    partner.setId(id);
+    return partner;
+}
+
+  static String partnerToId(Partner partner) => partner?.getId();
 }

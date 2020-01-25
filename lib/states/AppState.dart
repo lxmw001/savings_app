@@ -15,12 +15,10 @@ class AppState with ChangeNotifier {
   bool _loggedIn = false;
   bool _loading = false;
   FirebaseUser _user;
-  Settings _settings;
 
   bool isLoggedIn() => _loggedIn;
   bool isLoading() => _loading;
   FirebaseUser getCurrentUser() => _user;
-  Settings getSettings() => _settings;
 
   void login() async {
     _loading = true;
@@ -30,7 +28,9 @@ class AppState with ChangeNotifier {
 
     if(_user != null) {
       FirestoreService.createService(_user.uid);
-      _settings = await _getSettings();
+      var sett = await _getSettings();
+      print('inter: ' + sett.internalInterest.getType());
+      print('exter: ' + sett.externalInterest.getType());
       _loading = false;
       _loggedIn = true;
       notifyListeners();
@@ -65,12 +65,8 @@ class AppState with ChangeNotifier {
   Future<Settings> _getSettings() {
     return SettingsService.getSettings().then((DocumentSnapshot settings) {
       print("Settings retreived: " + settings.data.toString());
+      SettingsService.settings = new Settings.fromJson(settings.data);
       return new Settings.fromJson(settings.data);
     });
-  }
-
-  void setSettings(Settings settings) {
-    _settings = settings;
-    notifyListeners();
   }
 }

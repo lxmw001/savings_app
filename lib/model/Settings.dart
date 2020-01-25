@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lombok/lombok.dart';
+import 'package:savings_app/constants/LoanInterestTypes.dart';
 import 'package:savings_app/model/LoanInterest.dart';
 
 part 'Settings.g.dart';
@@ -9,11 +10,11 @@ part 'Settings.g.dart';
 @JsonSerializable()
 class Settings with _$SettingsLombok {
   @JsonKey(
-      fromJson: LoanInterest.loanInterestFromInt,
+      fromJson: _internalInterestFromInt,
       toJson: LoanInterest.loanInterestToInt)
   LoanInterest internalInterest;
   @JsonKey(
-      fromJson: LoanInterest.loanInterestFromInt,
+      fromJson: _externalInterestFromInt,
       toJson: LoanInterest.loanInterestToInt)
   LoanInterest externalInterest;
   double monthlyPaymentValue;
@@ -25,4 +26,14 @@ class Settings with _$SettingsLombok {
       _$SettingsFromJson(json);
 
   Map<String, dynamic> toJson() => _$SettingsToJson(this);
+
+  static LoanInterest _internalInterestFromInt(int value) {
+    return LoanInterest.loanInterestFromIntAndType(
+        LoanInterestTypes.INTERNAL, value);
+  }
+
+  static LoanInterest _externalInterestFromInt(int value) {
+    return LoanInterest.loanInterestFromIntAndType(
+        LoanInterestTypes.EXTERNAL, value);
+  }
 }

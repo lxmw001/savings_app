@@ -3,7 +3,10 @@ import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/FirestoreService.dart';
 
 class SettingsService {
-  static void updateSettings(Settings settings) {
+  static Settings settings;
+
+  static void updateSettings(Settings sets) {
+    settings = sets;
     FirestoreService.settingsReference().updateData(settings.toJson());
   }
 

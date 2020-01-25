@@ -12,7 +12,7 @@ class LoanService {
   }
 
   static void createLoan(Loan loan) {
-    FirestoreService.partnersReference().add(loan.toJson());
+    FirestoreService.loansReference().add(loan.toJson());
   }
 
   static void updateLoan(Loan loan) {

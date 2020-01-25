@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/SettingsService.dart';
-import 'package:savings_app/states/AppState.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -16,7 +14,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    settings = Provider.of<AppState>(context, listen: false).getSettings();
+    settings = SettingsService.settings;
+
+    print('inter: ' + settings.getInternalInterest().getType());
+    print('exter: ' + settings.getExternalInterest().getType());
 
     return Scaffold(
       appBar: AppBar(
@@ -69,12 +70,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      Provider.of<AppState>(context, listen: false)
-                          .setSettings(settings);
-
-                      //Save in Firebase
                       SettingsService.updateSettings(settings);
-
                       Navigator.pop(context);
                     },
                   ),

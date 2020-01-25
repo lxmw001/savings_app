@@ -9,9 +9,9 @@ part of 'Settings.dart';
 Settings _$SettingsFromJson(Map<String, dynamic> json) {
   return Settings(
     internalInterest:
-        LoanInterest.loanInterestFromInt(json['internalInterest'] as int),
+        Settings._internalInterestFromInt(json['internalInterest'] as int),
     externalInterest:
-        LoanInterest.loanInterestFromInt(json['externalInterest'] as int),
+        Settings._externalInterestFromInt(json['externalInterest'] as int),
     monthlyPaymentValue: (json['monthlyPaymentValue'] as num)?.toDouble(),
   );
 }

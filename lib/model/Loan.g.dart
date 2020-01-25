@@ -8,7 +8,7 @@ part of 'Loan.dart';
 
 Loan _$LoanFromJson(Map<String, dynamic> json) {
   return Loan(
-    interest: LoanInterest.loanInterestFromInt(json['interest'] as int),
+    interest: LoanInterest.loanInterestFromType(json['interest'] as String),
   )
     ..id = json['id'] as String
     ..type = json['type'] as String
@@ -18,9 +18,7 @@ Loan _$LoanFromJson(Map<String, dynamic> json) {
         json['date'] == null ? null : DateTime.parse(json['date'] as String)
     ..debt = (json['debt'] as num)?.toDouble()
     ..paymentValue = (json['paymentValue'] as num)?.toDouble()
-    ..partner = json['partner'] == null
-        ? null
-        : Partner.fromJson(json['partner'] as Map<String, dynamic>);
+    ..partner = Partner.partnerFromId(json['partner'] as String);
 }
 
 Map<String, dynamic> _$LoanToJson(Loan instance) => <String, dynamic>{
@@ -31,8 +29,8 @@ Map<String, dynamic> _$LoanToJson(Loan instance) => <String, dynamic>{
       'date': instance.date?.toIso8601String(),
       'debt': instance.debt,
       'paymentValue': instance.paymentValue,
-      'interest': LoanInterest.loanInterestToInt(instance.interest),
-      'partner': instance.partner,
+      'interest': LoanInterest.loanInterestToType(instance.interest),
+      'partner': Partner.partnerToId(instance.partner),
     };
 
 // **************************************************************************

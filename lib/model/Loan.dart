@@ -17,9 +17,12 @@ class Loan extends BasicModel with _$LoanLombok {
   double debt;
   double paymentValue;
   @JsonKey(
-      fromJson: LoanInterest.loanInterestFromInt,
-      toJson: LoanInterest.loanInterestToInt)
+      fromJson: LoanInterest.loanInterestFromType,
+      toJson: LoanInterest.loanInterestToType)
   LoanInterest interest;
+  @JsonKey(
+    fromJson: Partner.partnerFromId,
+    toJson: Partner.partnerToId)
   Partner partner;
 
   Loan({this.interest}) {
@@ -27,6 +30,7 @@ class Loan extends BasicModel with _$LoanLombok {
     this.value = 0;
     this.paymentsNumber = 0;
     this.paymentValue = 0;
+    this.partner = new Partner();
   }
 
   factory Loan.fromJson(Map<String, dynamic> json) => _$LoanFromJson(json);
@@ -35,7 +39,7 @@ class Loan extends BasicModel with _$LoanLombok {
 
   /*Functions*/
   double calculateInterest() {
-    return value * (interest.value / 100);
+    return (value != null ? value : 0) * (interest.value / 100);
   }
 
   double calculateValueToPay() {
@@ -43,6 +47,7 @@ class Loan extends BasicModel with _$LoanLombok {
   }
 
   void calculatePaymentsValue() {
-    this.paymentValue = calculateValueToPay() / paymentsNumber;
+    this.paymentValue =
+        paymentsNumber != 0 ? calculateValueToPay() / paymentsNumber : 0;
   }
 }
