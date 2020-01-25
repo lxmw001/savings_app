@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:savings_app/model/Settings.dart';
-import '../states/AppState.dart';
+import 'package:savings_app/services/SettingsService.dart';
+import 'package:savings_app/states/AppState.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,21 +10,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String internal;
-  String external;
-  double monthlyPaymentValue;
-  Settings settings = new Settings();
+  Settings settings;
 
   final key = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    settings = Provider.of<AppState>(context, listen: false).getSettings();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    settings = Provider.of<AppState>(context, listen: false).getSettings();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Ajustes'),
@@ -37,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: TextFormField(
                     initialValue: settings.monthlyPaymentValue.toString(),
                     onSaved: (value) =>
-                        monthlyPaymentValue = double.parse(value),
+                        settings.setMonthlyPaymentValue(double.parse(value)),
                     decoration: InputDecoration(
                       labelText: 'Cuota mensual',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -48,7 +42,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: TextFormField(
                     initialValue:
                         settings.internalInterest.getValue().toString(),
-                    onSaved: (value) => internal = value,
+                    onSaved: (value) => settings
+                        .getInternalInterest()
+                        .setValue(int.tryParse(value)),
                     decoration: InputDecoration(
                       labelText: 'Interes interno',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -59,7 +55,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: TextFormField(
                     initialValue:
                         settings.externalInterest.getValue().toString(),
-                    onSaved: (value) => external = value,
+                    onSaved: (value) => settings
+                        .getExternalInterest()
+                        .setValue(int.tryParse(value)),
                     decoration: InputDecoration(
                       labelText: 'Interes externo',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -71,17 +69,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      settings
-                          .getInternalInterest()
-                          .setValue(int.tryParse(internal));
-                      settings
-                          .getExternalInterest()
-                          .setValue(int.tryParse(external));
-                      settings.setMonthlyPaymentValue(monthlyPaymentValue);
                       Provider.of<AppState>(context, listen: false)
                           .setSettings(settings);
 
-                      //save in firebase
+                      //Save in Firebase
+                      SettingsService.updateSettings(settings);
 
                       Navigator.pop(context);
                     },

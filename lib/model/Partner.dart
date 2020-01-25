@@ -1,35 +1,21 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lombok/lombok.dart';
+import 'package:savings_app/model/BasicModel.dart';
+
+part 'Partner.g.dart';
 
 @data
-class Partner {
+@toString
+@JsonSerializable()
+class Partner extends BasicModel with _$PartnerLombok {
   String name;
   String phoneNumber;
   String email;
 
   Partner({this.name = '', this.phoneNumber = '', this.email = ''});
 
-  /*Getters and Setters*/
-  void setName(name) {
-    this.name = name;
-  }
+  factory Partner.fromJson(Map<String, dynamic> json) =>
+      _$PartnerFromJson(json);
 
-  String getName() {
-    return name;
-  }
-
-  void setPhoneNumber(phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-  String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  void setEmail(email) {
-    this.email = email;
-  }
-
-  String getEmail() {
-    return email;
-  }
+  Map<String, dynamic> toJson() => _$PartnerToJson(this);
 }

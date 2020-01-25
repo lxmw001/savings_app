@@ -1,16 +1,24 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lombok/lombok.dart';
+import 'package:savings_app/model/BasicModel.dart';
+import 'package:savings_app/model/LoanInterest.dart';
 import 'package:savings_app/model/Partner.dart';
-import './LoanInterest.dart';
 
-//not woks
+part 'Loan.g.dart';
+
 @data
-class Loan {
+@toString
+@JsonSerializable()
+class Loan extends BasicModel with _$LoanLombok {
   String type;
   double value;
   int paymentsNumber;
   DateTime date;
   double debt;
   double paymentValue;
+  @JsonKey(
+      fromJson: LoanInterest.loanInterestFromInt,
+      toJson: LoanInterest.loanInterestToInt)
   LoanInterest interest;
   Partner partner;
 
@@ -20,6 +28,10 @@ class Loan {
     this.paymentsNumber = 0;
     this.paymentValue = 0;
   }
+
+  factory Loan.fromJson(Map<String, dynamic> json) => _$LoanFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LoanToJson(this);
 
   /*Functions*/
   double calculateInterest() {
@@ -32,42 +44,5 @@ class Loan {
 
   void calculatePaymentsValue() {
     this.paymentValue = calculateValueToPay() / paymentsNumber;
-  }
-
-  /*Getters and Setters*/
-  void setValue(value) {
-    this.value = value;
-  }
-
-  double getValue() {
-    return this.value;
-  }
-
-  void setInterest(interest) {
-    this.interest = interest;
-  }
-
-  LoanInterest getInterest() {
-    return this.interest;
-  }
-
-  void setPaymentsNumber(paymentsNumber) {
-    this.paymentsNumber = paymentsNumber;
-  }
-
-  int getPaymentsNumber() {
-    return this.paymentsNumber;
-  }
-
-  double getPaymentValue() {
-    return this.paymentValue;
-  }
-
-  void setPartner(partner) {
-    this.partner = partner;
-  }
-
-  Partner getPartner() {
-    return partner;
   }
 }

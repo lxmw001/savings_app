@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/model/Partner.dart';
+import 'package:savings_app/services/PartnerService.dart';
 import '../widgets/SideMenu.dart';
 import '../widgets/PartnerItem.dart';
 
@@ -9,9 +11,6 @@ class PartnerPage extends StatefulWidget {
 
 class _PartnerPageState extends State<PartnerPage> {
 
-  var items = new List<int>.generate(10, (i) => i + 1);
-  //Change for Partner class
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,17 +18,31 @@ class _PartnerPageState extends State<PartnerPage> {
         title: Text('Socios'),
       ),
       drawer: SideMenu(),
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          return PartnerItem(name: 'Luis', position: 'Presidente', onTap: () => {});
+      body: StreamBuilder(
+        stream: PartnerService.getPartners(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const Text('Cargando...');
+          return ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              Partner partner =
+                  Partner.fromJson(snapshot.data.documents[index].data);
+              partner.setId(snapshot.data.documents[index].documentID);
+              return PartnerItem(
+                  partner: partner,
+                  onTap: () {
+                    Navigator.pushNamed(context, 'addPartner',
+                        arguments: partner);
+                  });
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, 'addPartner'),
+        onPressed: () => Navigator.pushNamed(context, 'addPartner',
+            arguments: new Partner()),
         tooltip: 'Nuevo Socio',
         child: Icon(Icons.add),
       ),

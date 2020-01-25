@@ -1,17 +1,24 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lombok/lombok.dart';
 
+part 'LoanInterest.g.dart';
+
 @data
-class LoanInterest {
+@toString
+@JsonSerializable()
+class LoanInterest with _$LoanInterestLombok {
   String type;
   int value;
 
   LoanInterest(this.type, this.value);
 
-  void setValue(value) {
-    this.value = value;
-  }
+  factory LoanInterest.fromJson(Map<String, dynamic> json) =>
+      _$LoanInterestFromJson(json);
 
-  int getValue(){
-    return this.value;
-  }
+  Map<String, dynamic> toJson() => _$LoanInterestToJson(this);
+
+  static LoanInterest loanInterestFromInt(int value) =>
+      value == null ? null : new LoanInterest('', value);
+
+  static int loanInterestToInt(LoanInterest interest) => interest?.getValue();
 }

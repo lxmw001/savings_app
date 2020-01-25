@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:savings_app/model/Partner.dart';
+import 'package:savings_app/services/PartnerService.dart';
 
 class AddPartnerPage extends StatefulWidget {
+  // TODO: add route name to all pagess
+  static const routeName = 'editPartner';
+
   @override
   _AddPartnerPageState createState() => _AddPartnerPageState();
 }
 
 class _AddPartnerPageState extends State<AddPartnerPage> {
-  String name = "";
-  String phoneNumber = "";
-  String email = "";
+  Partner partner;
 
   final key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    partner = ModalRoute.of(context).settings.arguments;
+    bool isNewPartner = partner == null;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nuevo Socio'),
+        title: Text(isNewPartner ? 'Crear Socio' : 'Editar Socio'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -26,7 +31,8 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
               children: <Widget>[
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => name = value,
+                    initialValue: partner.getName(),
+                    onSaved: (value) => partner.setName(value),
                     decoration: InputDecoration(
                       labelText: 'Nombre',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -35,7 +41,8 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => phoneNumber = value,
+                    initialValue: partner.getPhoneNumber(),
+                    onSaved: (value) => partner.setPhoneNumber(value),
                     decoration: InputDecoration(
                       labelText: 'Teléfono',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -44,7 +51,8 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
                 ),
                 ListTile(
                   title: TextFormField(
-                    onSaved: (value) => email = value,
+                    initialValue: partner.getEmail(),
+                    onSaved: (value) => partner.setEmail(value),
                     decoration: InputDecoration(
                       labelText: 'Email',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -56,8 +64,7 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      Partner partner = new Partner(name: name, phoneNumber: phoneNumber, email: email);
-                      //save in firebase
+                      PartnerService.createOrUpdate(partner);
                       Navigator.pop(context);
                     },
                   ),

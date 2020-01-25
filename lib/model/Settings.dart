@@ -1,38 +1,28 @@
-import 'package:savings_app/constants/LoanTypes.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:lombok/lombok.dart';
 import 'package:savings_app/model/LoanInterest.dart';
 
-class Settings {
+part 'Settings.g.dart';
+
+@data
+@toString
+@JsonSerializable()
+class Settings with _$SettingsLombok {
+  @JsonKey(
+      fromJson: LoanInterest.loanInterestFromInt,
+      toJson: LoanInterest.loanInterestToInt)
   LoanInterest internalInterest;
+  @JsonKey(
+      fromJson: LoanInterest.loanInterestFromInt,
+      toJson: LoanInterest.loanInterestToInt)
   LoanInterest externalInterest;
   double monthlyPaymentValue;
 
-  Settings({
-    this.internalInterest,
-    this.externalInterest,
-    this.monthlyPaymentValue
-  });
+  Settings(
+      {this.internalInterest, this.externalInterest, this.monthlyPaymentValue});
 
-  factory Settings.fromJson(Map<String, dynamic> settingsMap){
-    return Settings(
-        internalInterest: new LoanInterest(LoanTypes.INTERNAL, settingsMap['internalInterest']) ,
-        externalInterest: new LoanInterest(LoanTypes.EXTERNAL, settingsMap['externalInterest']) ,
-        monthlyPaymentValue: double.tryParse(settingsMap['monthlyPayment'].toString())
-    );
-  }
+  factory Settings.fromJson(Map<String, dynamic> json) =>
+      _$SettingsFromJson(json);
 
-  void setMonthlyPaymentValue(monthlyPaymentValue) {
-    this.monthlyPaymentValue = monthlyPaymentValue;
-  }
-
-  void setInternalInterest(internalInterest) {
-    this.internalInterest = internalInterest;
-  }
-
-  void setExternalInterest(externalInterest) {
-    this.externalInterest = externalInterest;
-  }
-
-  LoanInterest getInternalInterest() => internalInterest;
-
-  LoanInterest getExternalInterest() => externalInterest;
+  Map<String, dynamic> toJson() => _$SettingsToJson(this);
 }
