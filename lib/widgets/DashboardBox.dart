@@ -38,7 +38,7 @@ class DashboardBox extends StatelessWidget {
                       .apply(color: Colors.white, fontWeightDelta: 2),
                 ),
                 TextSpan(
-                  text: value.toString(),
+                  text: value.toStringAsFixed(2),
                   style: Theme.of(context)
                       .textTheme
                       .display1

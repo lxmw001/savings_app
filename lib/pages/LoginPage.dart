@@ -95,73 +95,73 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(180),
+                    height: ScreenUtil.getInstance().setHeight(380),
                   ),
-                  FormCard(),
-                  SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 12.0,
-                          ),
-                          GestureDetector(
-                            onTap: _radio,
-                            child: radioButton(_isSelected),
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Text("Remember me",
-                              style: TextStyle(
-                                  fontSize: 12, fontFamily: "Poppins-Medium"))
-                        ],
-                      ),
-                      Consumer<AppState>(
-                        builder: (BuildContext context, AppState value,
-                            Widget child) {
-                          if (value.isLoading()) {
-                            return CircularProgressIndicator();
-                          }
-                          return child;
-                        },
-                        child: InkWell(
-                          child: Container(
-                            width: ScreenUtil.getInstance().setWidth(330),
-                            height: ScreenUtil.getInstance().setHeight(100),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  Color(0xFF17ead9),
-                                  Color(0xFF6078ea)
-                                ]),
-                                borderRadius: BorderRadius.circular(6.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color(0xFF6078ea).withOpacity(.3),
-                                      offset: Offset(0.0, 8.0),
-                                      blurRadius: 8.0)
-                                ]),
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: _signin,
-                                child: Center(
-                                  child: Text("SIGNIN",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "Poppins-Bold",
-                                          fontSize: 18,
-                                          letterSpacing: 1.0)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+//                  FormCard(),
+//                  SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
+//                  Row(
+//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                    children: <Widget>[
+//                      Row(
+//                        children: <Widget>[
+//                          SizedBox(
+//                            width: 12.0,
+//                          ),
+//                          GestureDetector(
+//                            onTap: _radio,
+//                            child: radioButton(_isSelected),
+//                          ),
+//                          SizedBox(
+//                            width: 8.0,
+//                          ),
+//                          Text("Remember me",
+//                              style: TextStyle(
+//                                  fontSize: 12, fontFamily: "Poppins-Medium"))
+//                        ],
+//                      ),
+//                      Consumer<AppState>(
+//                        builder: (BuildContext context, AppState value,
+//                            Widget child) {
+//                          if (value.isLoading()) {
+//                            return CircularProgressIndicator();
+//                          }
+//                          return child;
+//                        },
+//                        child: InkWell(
+//                          child: Container(
+//                            width: ScreenUtil.getInstance().setWidth(330),
+//                            height: ScreenUtil.getInstance().setHeight(100),
+//                            decoration: BoxDecoration(
+//                                gradient: LinearGradient(colors: [
+//                                  Color(0xFF17ead9),
+//                                  Color(0xFF6078ea)
+//                                ]),
+//                                borderRadius: BorderRadius.circular(6.0),
+//                                boxShadow: [
+//                                  BoxShadow(
+//                                      color: Color(0xFF6078ea).withOpacity(.3),
+//                                      offset: Offset(0.0, 8.0),
+//                                      blurRadius: 8.0)
+//                                ]),
+//                            child: Material(
+//                              color: Colors.transparent,
+//                              child: InkWell(
+//                                onTap: _signin,
+//                                child: Center(
+//                                  child: Text("SIGNIN",
+//                                      style: TextStyle(
+//                                          color: Colors.white,
+//                                          fontFamily: "Poppins-Bold",
+//                                          fontSize: 18,
+//                                          letterSpacing: 1.0)),
+//                                ),
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+//                      )
+//                    ],
+//                  ),
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(40),
                   ),
@@ -196,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                           Color(0xFFff355d),
                         ],
                         iconData: CustomIcons.googlePlus,
-                        onPressed: () {},
+                        onPressed: _signin,
                       ),
                       SocialIcon(
                         colors: [
