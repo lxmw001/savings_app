@@ -22,4 +22,8 @@ class SettingsService {
         monthlyPaymentValue: DefaultSettings.monthlyPayment);
     FirestoreService.settingsReference().setData(settings.toJson());
   }
+
+  static void reset() {
+    settings = new Settings();
+  }
 }

@@ -30,18 +30,18 @@ class SideMenu extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(context, 'partners', (route) => false);
               }),
           MenuItem(
-              text: 'Cuotas',
-              icon: Icons.attach_money,
-              onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, 'partnerPayments', (route) => false);
-              }),
-          MenuItem(
               text: 'Prestamos',
               icon: Icons.monetization_on,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(context, 'loans', (route) => false);
               }),
+          MenuItem(
+            text: 'Pagos',
+            icon: Icons.attach_money,
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(context, 'partnerPayments', (route) => false);
+            }),
           Divider(),
           Expanded(
             child: Align(

@@ -51,4 +51,8 @@ class PartnerService {
   static Stream<QuerySnapshot> getPartners() {
     return FirestoreService.partnersReference().snapshots();
   }
+
+  static void reset() {
+    partners = [];
+  }
 }

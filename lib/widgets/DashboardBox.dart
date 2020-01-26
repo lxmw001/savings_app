@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:savings_app/services/SavingBankService.dart';
 
 class DashboardBox extends StatelessWidget {
   DashboardBox({Key key, this.title, this.value}) : super(key: key);
@@ -39,7 +38,7 @@ class DashboardBox extends StatelessWidget {
                       .apply(color: Colors.white, fontWeightDelta: 2),
                 ),
                 TextSpan(
-                  text: SavingBankService.savingBank.getTotal().toString(),
+                  text: value.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .display1

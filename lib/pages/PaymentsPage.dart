@@ -25,7 +25,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
     payments = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cuotas'),
+        title: Text('Cuotas de ' + payments[0].getPartner().getName()),
       ),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
@@ -38,7 +38,6 @@ class _PaymentsPageState extends State<PaymentsPage> {
               onTap: () {
                 print('id: ' + payment.getId());
                 PaymentModal.show(context, payment, index, confirmPayment);
-//                Navigator.pushNamed(context, 'payments', arguments: payments);
               });
         },
       ),

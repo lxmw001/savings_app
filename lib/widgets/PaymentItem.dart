@@ -41,9 +41,9 @@ class PaymentItem extends StatelessWidget {
           trailing:
               Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-//            if (payment.getState() == PaymentState.PENDING) {
+            if (payment.getState() == PaymentState.PENDING) {
               onTap();
-//            }
+            }
           },
         ),
       ),

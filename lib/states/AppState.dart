@@ -8,6 +8,8 @@ import 'package:savings_app/model/Period.dart';
 import 'package:savings_app/model/SavingBank.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/FirestoreService.dart';
+import 'package:savings_app/services/PartnerService.dart';
+import 'package:savings_app/services/PaymentService.dart';
 import 'package:savings_app/services/PeriodService.dart';
 import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/services/SettingsService.dart';
@@ -48,9 +50,17 @@ class AppState with ChangeNotifier {
   }
 
   void logout() {
-    _googleSignIn.signOut();
-    _loggedIn = false;
-    notifyListeners();
+    _googleSignIn.signOut().then((_) {
+      FirestoreService.reset();
+      PartnerService.reset();
+      PaymentService.reset();
+      PeriodService.reset();
+      SavingBankService.reset();
+      SettingsService.reset();
+      _user = null;
+      _loggedIn = false;
+      notifyListeners();
+    });
   }
 
   Future<FirebaseUser> _handleSignIn() async {

@@ -24,12 +24,15 @@ class PeriodService {
   }
 
   static void setPeriod(Period newPeriod) {
-    print('set period');
     period = newPeriod;
     FirestoreService.createPeriodService(newPeriod.getKey());
   }
 
   static Stream<QuerySnapshot> getPeriods() {
     return FirestoreService.periodsReference().snapshots();
+  }
+
+  static void reset() {
+    period = new Period();
   }
 }

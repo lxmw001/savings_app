@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/SideMenu.dart';
+import 'package:savings_app/model/SavingBank.dart';
+import 'package:savings_app/services/SavingBankService.dart';
+
 import '../widgets/DashboardBox.dart';
+import '../widgets/SideMenu.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,9 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
+    SavingBank bank = SavingBankService.savingBank;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
@@ -20,7 +23,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DashboardBox(title: "Capital", value: 30)
+            DashboardBox(title: "Capital", value: bank.getTotal()),
+            DashboardBox(title: "Disponible", value: bank.getAvailableValue()),
+            DashboardBox(title: "Prestamos", value: bank.getLoanValues()),
+            DashboardBox(title: "Ganancias", value: bank.getInterestValues()),
+
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/LoanService.dart';
 import 'package:savings_app/services/PartnerService.dart';
+import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/services/SettingsService.dart';
 
 class AddLoanPage extends StatefulWidget {
@@ -35,6 +36,13 @@ class _AddLoanPageState extends State<AddLoanPage> {
   updatePaymentValue() {
     loan.calculatePaymentsValue();
     setState(() {});
+  }
+
+  validateValue() {
+    if(loan.getValue() > SavingBankService.savingBank.getAvailableValue()) {
+      return 'Maximo valor disponible: ' +  SavingBankService.savingBank.getAvailableValue().toString();
+    }
+    return null;
   }
 
   @override
@@ -111,7 +119,9 @@ class _AddLoanPageState extends State<AddLoanPage> {
                     decoration: InputDecoration(
                       labelText: 'Valor',
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      errorText: validateValue(),
                     ),
+
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       WhitelistingTextInputFormatter.digitsOnly

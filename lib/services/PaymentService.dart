@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:savings_app/constants/PaymentState.dart';
+import 'package:savings_app/model/Loan.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/model/Payment.dart';
 import 'package:savings_app/services/FirestoreService.dart';
-import 'package:savings_app/services/PeriodService.dart';
 import 'package:savings_app/services/SettingsService.dart';
 import 'package:savings_app/utils/DateUtils.dart';
 
@@ -12,13 +12,27 @@ class PaymentService {
 
   static void generatePaymentForPartner(Partner partner) {
     List<DateTime> months =
-        DateUtils.calculateDaysInterval(PeriodService.period.getFrom().year);
+        DateUtils.calculateMonthsInterval();
 
     months.forEach((month) {
       Payment payment = new Payment(
           date: month,
           value: SettingsService.settings.getMonthlyPaymentValue());
       payment.setPartner(partner);
+      FirestoreService.paymentsReference().add(payment.toJson());
+    });
+  }
+
+  static void generatePaymentForLoan(Loan loan) {
+    List<DateTime> months =
+    DateUtils.calculateNextMonthsInterval(loan.getPaymentsNumber());
+
+    months.forEach((month) {
+      Payment payment = new Payment(
+        date: month,
+        value: loan.getPaymentValue());
+      payment.setPartner(loan.getPartner());
+      payment.setLoan(loan);
       FirestoreService.paymentsReference().add(payment.toJson());
     });
   }
@@ -47,7 +61,13 @@ class PaymentService {
   }
 
   static List<Payment> getPaymentsForPartner(Partner partner) {
-    return payments.where((payment) => payment.partner.getId() == partner.getId()).toList();
+    return payments.where((payment) {
+      bool matched = payment.partner.getId() == partner.getId();
+      if(matched) {
+        payment.setPartner(partner);
+      }
+      return matched;
+    }).toList();
   }
 
   static List<Payment> getCurrentPayments(Partner partner) {
@@ -69,5 +89,9 @@ class PaymentService {
 
   static Stream<QuerySnapshot> getPayments() {
     return FirestoreService.paymentsReference().snapshots();
+  }
+
+  static void reset() {
+    payments = [];
   }
 }

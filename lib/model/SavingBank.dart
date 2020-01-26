@@ -10,8 +10,14 @@ part 'SavingBank.g.dart';
 class SavingBank extends BasicModel with _$SavingBankLombok {
 
   double total;
+  double loanValues;
+  double interestValues;
 
-  SavingBank({this.total = 0});
+  SavingBank({this.total = 0, this.loanValues = 0, this.interestValues = 0});
+
+  double getAvailableValue() {
+    return total - loanValues;
+  }
 
   factory SavingBank.fromJson(Map<String, dynamic> json) =>
     _$SavingBankFromJson(json);

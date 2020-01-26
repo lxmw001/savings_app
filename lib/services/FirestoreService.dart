@@ -43,4 +43,9 @@ class FirestoreService {
   static CollectionReference paymentsReference() {
     return periodDocument.collection('payments');
   }
+
+  static void reset(){
+    userDocument = null;
+    periodDocument = null;
+  }
 }

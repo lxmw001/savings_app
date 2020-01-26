@@ -12,10 +12,12 @@ part 'Loan.g.dart';
 class Loan extends BasicModel with _$LoanLombok {
   String type;
   double value;
+  double valueToPay;
   int paymentsNumber;
   DateTime date;
   double debt;
   double paymentValue;
+  double interestValue;
   @JsonKey(
       fromJson: LoanInterest.loanInterestFromType,
       toJson: LoanInterest.loanInterestToType)
@@ -30,6 +32,7 @@ class Loan extends BasicModel with _$LoanLombok {
     this.value = 0;
     this.paymentsNumber = 0;
     this.paymentValue = 0;
+    this.interestValue = 0;
     this.partner = new Partner();
   }
 
@@ -52,7 +55,9 @@ class Loan extends BasicModel with _$LoanLombok {
   }
 
   double calculateValueToPay() {
-    return value + (calculateInterest() * paymentsNumber);
+    valueToPay = value + (calculateInterest() * paymentsNumber);
+    interestValue = valueToPay - value;
+    return valueToPay;
   }
 
   void calculatePaymentsValue() {
