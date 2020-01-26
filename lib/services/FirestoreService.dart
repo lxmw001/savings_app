@@ -24,6 +24,14 @@ class FirestoreService {
     return settingsReference().snapshots();
   }
 
+  static DocumentReference savingBankReference() {
+    return periodDocument.collection('savings').document('savings');
+  }
+
+  static Stream<DocumentSnapshot> getSavingBank() {
+    return savingBankReference().snapshots();
+  }
+
   static CollectionReference partnersReference() {
     return periodDocument.collection('partners');
   }

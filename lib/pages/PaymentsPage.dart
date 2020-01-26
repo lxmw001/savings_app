@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:savings_app/modals/PaymentModal.dart';
 import 'package:savings_app/model/Payment.dart';
 import 'package:savings_app/services/PaymentService.dart';
+import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/widgets/PaymentItem.dart';
 
 class PaymentsPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
   confirmPayment(Payment payment, index) {
     payments[index] = payment;
     PaymentService.updatePayment(payment);
+    SavingBankService.updateSavingBank(payment.getValue());
     setState(() {});
   }
 

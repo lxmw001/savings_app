@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:savings_app/model/Period.dart';
+import 'package:savings_app/model/SavingBank.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/FirestoreService.dart';
 import 'package:savings_app/services/PeriodService.dart';
+import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/services/SettingsService.dart';
 
 class AppState with ChangeNotifier {
@@ -34,6 +36,7 @@ class AppState with ChangeNotifier {
       FirestoreService.createService(_user.uid);
       await _getPeriods();
       await _getSettings();
+      await _getSavingBank();
 
       _loading = false;
       _loggedIn = true;
@@ -73,6 +76,18 @@ class AppState with ChangeNotifier {
         SettingsService.createDefaultSettings();
       } else {
         SettingsService.settings = new Settings.fromJson(settings.data);
+      }
+      return;
+    });
+  }
+
+  Future<void> _getSavingBank() {
+    return SavingBankService.getSavingBank().then((DocumentSnapshot bank) {
+      print("Savings bank retreived: " + bank.data.toString());
+      if (bank.data == null) {
+        SavingBankService.createDefaultSavingBank();
+      } else {
+        SavingBankService.savingBank = new SavingBank.fromJson(bank.data);
       }
       return;
     });
