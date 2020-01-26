@@ -6,6 +6,8 @@ import 'package:savings_app/pages/HomePage.dart';
 import 'package:savings_app/pages/LoanPage.dart';
 import 'package:savings_app/pages/LoginPage.dart';
 import 'package:savings_app/pages/PartnerPage.dart';
+import 'package:savings_app/pages/PartnerPaymentsPage.dart';
+import 'package:savings_app/pages/PaymentsPage.dart';
 import 'package:savings_app/pages/SettingsPage.dart';
 import 'package:savings_app/states/AppState.dart';
 
@@ -47,9 +49,18 @@ class MyApp extends StatelessWidget {
               return LoginPage();
             }
           },
+          'partnerPayments': (BuildContext context) {
+            var state = Provider.of<AppState>(context);
+            if (state.isLoggedIn()) {
+              return PartnerPaymentsPage();
+            } else {
+              return LoginPage();
+            }
+          },
           'settings': (BuildContext context) => SettingsPage(),
           'addPartner': (BuildContext context) => AddPartnerPage(),
           'addLoan': (BuildContext context) =>  AddLoanPage(),
+          'payments': (BuildContext context) => PaymentsPage(),
         },
       ),
     );

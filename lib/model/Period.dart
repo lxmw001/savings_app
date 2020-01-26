@@ -1,8 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lombok/lombok.dart';
-import 'package:savings_app/constants/LoanInterestTypes.dart';
 import 'package:savings_app/model/BasicModel.dart';
-import 'package:savings_app/services/SettingsService.dart';
 
 part 'Period.g.dart';
 
@@ -15,8 +13,7 @@ class Period extends BasicModel with _$PeriodLombok {
 
   Period({this.from, this.to});
 
-  factory Period.fromJson(Map<String, dynamic> json) =>
-      _$PeriodFromJson(json);
+  factory Period.fromJson(Map<String, dynamic> json) => _$PeriodFromJson(json);
 
   Map<String, dynamic> toJson() => _$PeriodToJson(this);
 

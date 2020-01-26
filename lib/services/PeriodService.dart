@@ -24,6 +24,7 @@ class PeriodService {
   }
 
   static void setPeriod(Period newPeriod) {
+    print('set period');
     period = newPeriod;
     FirestoreService.createPeriodService(newPeriod.getKey());
   }

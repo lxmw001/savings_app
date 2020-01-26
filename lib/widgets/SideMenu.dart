@@ -33,7 +33,7 @@ class SideMenu extends StatelessWidget {
               text: 'Cuotas',
               icon: Icons.attach_money,
               onTap: () {
-                print("cuotas");
+                Navigator.pushNamedAndRemoveUntil(context, 'partnerPayments', (route) => false);
               }),
           MenuItem(
               text: 'Prestamos',

@@ -31,4 +31,8 @@ class FirestoreService {
   static CollectionReference loansReference() {
     return periodDocument.collection('loans');
   }
+
+  static CollectionReference paymentsReference() {
+    return periodDocument.collection('payments');
+  }
 }

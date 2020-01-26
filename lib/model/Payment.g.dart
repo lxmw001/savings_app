@@ -9,13 +9,21 @@ part of 'Payment.dart';
 Payment _$PaymentFromJson(Map<String, dynamic> json) {
   return Payment(
     date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    value: json['value'] as int,
-  );
+    value: (json['value'] as num)?.toDouble(),
+    state: json['state'] as String,
+  )
+    ..id = json['id'] as String
+    ..partner = Partner.partnerFromId(json['partner'] as String)
+    ..loan = Loan.loanFromId(json['loan'] as String);
 }
 
 Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
+      'id': instance.id,
       'date': instance.date?.toIso8601String(),
       'value': instance.value,
+      'state': instance.state,
+      'partner': Partner.partnerToId(instance.partner),
+      'loan': Loan.loanToId(instance.loan),
     };
 
 // **************************************************************************
@@ -25,7 +33,10 @@ Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
 abstract class _$PaymentLombok {
   /// Field
   DateTime date;
-  int value;
+  double value;
+  String state;
+  Partner partner;
+  Loan loan;
 
   /// Setter
 
@@ -33,8 +44,20 @@ abstract class _$PaymentLombok {
     this.date = date;
   }
 
-  void setValue(int value) {
+  void setValue(double value) {
     this.value = value;
+  }
+
+  void setState(String state) {
+    this.state = state;
+  }
+
+  void setPartner(Partner partner) {
+    this.partner = partner;
+  }
+
+  void setLoan(Loan loan) {
+    this.loan = loan;
   }
 
   /// Getter
@@ -42,7 +65,19 @@ abstract class _$PaymentLombok {
     return date;
   }
 
-  int getValue() {
+  double getValue() {
     return value;
+  }
+
+  String getState() {
+    return state;
+  }
+
+  Partner getPartner() {
+    return partner;
+  }
+
+  Loan getLoan() {
+    return loan;
   }
 }

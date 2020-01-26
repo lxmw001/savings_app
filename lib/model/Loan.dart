@@ -37,6 +37,15 @@ class Loan extends BasicModel with _$LoanLombok {
 
   Map<String, dynamic> toJson() => _$LoanToJson(this);
 
+
+  static Loan loanFromId(String id) {
+    Loan loan = new Loan();
+    loan.setId(id);
+    return loan;
+  }
+
+  static String loanToId(Loan loan) => loan?.getId();
+
   /*Functions*/
   double calculateInterest() {
     return (value != null ? value : 0) * (interest.value / 100);

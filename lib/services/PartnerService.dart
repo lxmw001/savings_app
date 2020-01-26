@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/FirestoreService.dart';
+import 'package:savings_app/services/PaymentService.dart';
 
 class PartnerService {
   static List<Partner> partners;
@@ -34,7 +35,11 @@ class PartnerService {
   }
 
   static void createPartner(Partner partner) {
-    FirestoreService.partnersReference().add(partner.toJson());
+    FirestoreService.partnersReference().add(partner.toJson()).then((partnerCreated) {
+      partner.setId(partnerCreated.documentID);
+      PaymentService.generatePaymentForPartner(partner);
+    });
+
   }
 
   static void updatePartner(Partner partner) {
