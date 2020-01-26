@@ -25,11 +25,9 @@ class _AddLoanPageState extends State<AddLoanPage> {
   final key = GlobalKey<FormState>();
 
   changeInterest(String interestType) {
-    print('type: ' + interestType);
     LoanInterest interest = interestType == LoanInterestTypes.INTERNAL
         ? settings.getInternalInterest()
         : settings.getExternalInterest();
-    print('interest to set: ' + interest.getType());
     loan.setInterest(interest);
     updatePaymentValue();
   }
@@ -45,7 +43,6 @@ class _AddLoanPageState extends State<AddLoanPage> {
       isInitialized = true;
       loan = ModalRoute.of(context).settings.arguments;
       settings = SettingsService.settings;
-      print(loan.toString());
 
       partnerId = loan.getPartner().getId();
     }

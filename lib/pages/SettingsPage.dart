@@ -16,9 +16,6 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     settings = SettingsService.settings;
 
-    print('inter: ' + settings.getInternalInterest().getType());
-    print('exter: ' + settings.getExternalInterest().getType());
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Ajustes'),

@@ -1,16 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
-
   static DocumentReference userDocument;
+  static DocumentReference periodDocument;
 
   static createService(userId) {
-    userDocument = Firestore.instance.collection('users')
-        .document(userId);
+    userDocument = Firestore.instance.collection('users').document(userId);
+  }
+
+  static createPeriodService(periodId) {
+    periodDocument = periodsReference().document(periodId);
+  }
+
+  static CollectionReference periodsReference() {
+    return userDocument.collection('periods');
   }
 
   static DocumentReference settingsReference() {
-    return userDocument.collection('settings').document('business');
+    return periodDocument.collection('settings').document('business');
   }
 
   static Stream<DocumentSnapshot> getSettings() {
@@ -18,10 +25,10 @@ class FirestoreService {
   }
 
   static CollectionReference partnersReference() {
-    return userDocument.collection('partners');
+    return periodDocument.collection('partners');
   }
 
   static CollectionReference loansReference() {
-    return userDocument.collection('loans');
+    return periodDocument.collection('loans');
   }
 }
