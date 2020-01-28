@@ -9,6 +9,7 @@ import 'package:savings_app/services/LoanService.dart';
 import 'package:savings_app/services/PartnerService.dart';
 import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/services/SettingsService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 
 class AddLoanPage extends StatefulWidget {
   @override
@@ -58,9 +59,7 @@ class _AddLoanPageState extends State<AddLoanPage> {
     bool isNewLoan = loan.getId() == null;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isNewLoan ? 'Nuevo Préstamo' : 'Editar Préstamo'),
-      ),
+      appBar: MyAppBar(text: isNewLoan ? 'Nuevo Préstamo' : 'Editar Préstamo'),
       body: SingleChildScrollView(
         child: Form(
             key: key,

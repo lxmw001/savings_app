@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:savings_app/design/PaletteColors.dart';
 import 'package:savings_app/pages/AddLoanPage.dart';
 import 'package:savings_app/pages/AddPartnerPage.dart';
 import 'package:savings_app/pages/HomePage.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: PaletteColors.primary,
+//          bottomAppBarColor: MaterialColor(PaletteColors.secondary.value, color),
         ),
         routes: {
           // TODO: implement a secured route in utils

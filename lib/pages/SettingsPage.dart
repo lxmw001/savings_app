@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/SettingsService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -17,9 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     settings = SettingsService.settings;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ajustes'),
-      ),
+      appBar: MyAppBar(text: 'Ajustes'),
       body: SingleChildScrollView(
         child: Form(
             key: key,

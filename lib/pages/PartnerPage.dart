@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/design/PaletteColors.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/PartnerService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 import '../widgets/SideMenu.dart';
 import '../widgets/PartnerItem.dart';
 
@@ -14,9 +16,7 @@ class _PartnerPageState extends State<PartnerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Socios'),
-      ),
+      appBar: MyAppBar(text: 'Socios'),
       drawer: SideMenu(),
       body: StreamBuilder(
         stream: PartnerService.getPartners(),

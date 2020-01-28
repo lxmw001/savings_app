@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _signin() {
+    print('login');
     Provider.of<AppState>(context).login();
   }
 

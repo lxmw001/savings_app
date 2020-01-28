@@ -3,6 +3,7 @@ import 'package:savings_app/model/Loan.dart';
 import 'package:savings_app/services/LoanService.dart';
 import 'package:savings_app/services/SettingsService.dart';
 import 'package:savings_app/widgets/LoanItem.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 
 import '../widgets/SideMenu.dart';
 
@@ -15,9 +16,7 @@ class _LoanPageState extends State<LoanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Prestamos'),
-      ),
+      appBar: MyAppBar(text: 'Prestamos'),
       drawer: SideMenu(),
       body: StreamBuilder(
         stream: LoanService.getLoans(),

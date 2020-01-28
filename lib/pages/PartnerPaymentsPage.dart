@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/PartnerService.dart';
 import 'package:savings_app/services/PaymentService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 import 'package:savings_app/widgets/PartnerPaymentItem.dart';
 
 import '../widgets/SideMenu.dart';
@@ -15,9 +16,7 @@ class _PartnerPaymentsPageState extends State<PartnerPaymentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cuotas por Socio'),
-      ),
+      appBar: MyAppBar(text: 'Cuotas por Socio'),
       drawer: SideMenu(),
       body: StreamBuilder(
         stream: PartnerService.getPartners(),

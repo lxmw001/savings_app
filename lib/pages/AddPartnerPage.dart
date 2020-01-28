@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/PartnerService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 
 class AddPartnerPage extends StatefulWidget {
   // TODO: add route name to all pagess
@@ -21,9 +22,7 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
     bool isNewPartner = partner.getId() == null;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isNewPartner ? 'Crear Socio' : 'Editar Socio'),
-      ),
+      appBar: MyAppBar(text: isNewPartner ? 'Crear Socio' : 'Editar Socio'),
       body: SingleChildScrollView(
         child: Form(
             key: key,

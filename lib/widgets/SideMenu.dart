@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:savings_app/design/PaletteColors.dart';
 
 import './MenuItem.dart';
 import '../states/AppState.dart';
@@ -17,6 +18,9 @@ class SideMenu extends StatelessWidget {
             accountName: Text(user.displayName),
             currentAccountPicture:
                 CircleAvatar(backgroundImage: NetworkImage(user.photoUrl)),
+//            decoration: BoxDecoration(
+//              color: PaletteColors.primary,
+//            ),
           ),
           Padding(padding: EdgeInsets.only(top: 20)),
           MenuItem(

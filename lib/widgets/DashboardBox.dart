@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/design/PaletteColors.dart';
 
 class DashboardBox extends StatelessWidget {
   DashboardBox({Key key, this.title, this.value}) : super(key: key);
@@ -10,7 +11,7 @@ class DashboardBox extends StatelessWidget {
     return new Container(
       padding: EdgeInsets.all(25.0),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: PaletteColors.secondary[800],
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Column(

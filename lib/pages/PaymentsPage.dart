@@ -3,6 +3,7 @@ import 'package:savings_app/modals/PaymentModal.dart';
 import 'package:savings_app/model/Payment.dart';
 import 'package:savings_app/services/PaymentService.dart';
 import 'package:savings_app/services/SavingBankService.dart';
+import 'package:savings_app/widgets/MyAppBar.dart';
 import 'package:savings_app/widgets/PaymentItem.dart';
 
 class PaymentsPage extends StatefulWidget {
@@ -24,9 +25,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
   Widget build(BuildContext context) {
     payments = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cuotas de ' + payments[0].getPartner().getName()),
-      ),
+      appBar: MyAppBar(text: 'Cuotas de ' + payments[0].getPartner().getName()),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
