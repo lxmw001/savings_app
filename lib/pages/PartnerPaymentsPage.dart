@@ -18,34 +18,19 @@ class _PartnerPaymentsPageState extends State<PartnerPaymentsPage> {
     return Scaffold(
       appBar: MyAppBar(text: 'Cuotas por Socio'),
       drawer: SideMenu(),
-      body: StreamBuilder(
-        stream: PartnerService.getPartners(),
-        builder: (context, snapshot1) {
-          if (!snapshot1.hasData) return const Text('Cargando...');
-          return StreamBuilder(
-              stream: PaymentService.getPayments(),
-              builder: (context, snapshot2) {
-                if (!snapshot2.hasData) return const Text('Cargando...');
-                PaymentService.loadFromDocumentList(snapshot2.data.documents);
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot1.data.documents.length,
-                  itemBuilder: (context, index) {
-                    Partner partner =
-                        Partner.fromJson(snapshot1.data.documents[index].data);
-                    partner.setId(snapshot1.data.documents[index].documentID);
-                    var payments =
-                        PaymentService.getCurrentPayments(partner);
-                    return PartnerPaymentItem(
-                        partner: partner,
-                        payments: payments,
-                        onTap: () {
-                          Navigator.pushNamed(context, 'payments',
-                              arguments: payments);
-                        });
-                  },
-                );
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: PartnerService.partners.length,
+        itemBuilder: (context, index) {
+          List<Partner> partners = PartnerService.partners;
+          Partner partner = partners.elementAt(index);
+          var payments = PaymentService.getCurrentPayments(partner);
+          return PartnerPaymentItem(
+              partner: partner,
+              payments: payments,
+              onTap: () {
+                Navigator.pushNamed(context, 'payments', arguments: payments);
               });
         },
       ),

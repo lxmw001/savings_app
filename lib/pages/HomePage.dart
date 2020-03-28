@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:savings_app/design/PaletteColors.dart';
 import 'package:savings_app/model/SavingBank.dart';
+import 'package:savings_app/services/PaymentService.dart';
 import 'package:savings_app/services/SavingBankService.dart';
 import 'package:savings_app/widgets/DashboardBox.dart';
 import 'package:savings_app/widgets/MyAppBar.dart';
@@ -35,12 +36,14 @@ class _HomePageState extends State<HomePage> {
             myBox("Disponible", bank.getAvailableValue()),
             myBox("Prestamos", bank.getLoanValues()),
             myBox("Ganancias", bank.getInterestValues()),
+            myBox("Monto Siguiente mes", PaymentService.getNextMonthTotalPayments()),
           ],
           staggeredTiles: [
             StaggeredTile.extent(2, 180),
             StaggeredTile.extent(2, 160),
-            StaggeredTile.extent(1, 160),
-            StaggeredTile.extent(1, 160),
+            StaggeredTile.extent(2, 140),
+            StaggeredTile.extent(2, 140),
+            StaggeredTile.extent(2, 140),
           ],
         ));
   }

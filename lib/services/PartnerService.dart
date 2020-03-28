@@ -6,12 +6,12 @@ import 'package:savings_app/services/PaymentService.dart';
 class PartnerService {
   static List<Partner> partners;
 
-  static void createOrUpdate(Partner partner) {
+  static Future createOrUpdate(Partner partner) {
     if (partner.getId() == null) {
-      createPartner(partner);
-    } else {
-      updatePartner(partner);
+      return createPartner(partner);
     }
+    return updatePartner(partner);
+
   }
 
   static List<Partner> loadFromDocumentList(List<DocumentSnapshot> documents) {
@@ -34,16 +34,17 @@ class PartnerService {
     return partners.firstWhere((p) => p.getId() == partnerId);
   }
 
-  static void createPartner(Partner partner) {
-    FirestoreService.partnersReference().add(partner.toJson()).then((partnerCreated) {
+  static Future createPartner(Partner partner) {
+    return FirestoreService.partnersReference().add(partner.toJson()).then((partnerCreated) {
       partner.setId(partnerCreated.documentID);
       PaymentService.generatePaymentForPartner(partner);
+      return partnerCreated;
     });
 
   }
 
-  static void updatePartner(Partner partner) {
-    FirestoreService.partnersReference()
+  static Future updatePartner(Partner partner) {
+    return FirestoreService.partnersReference()
         .document(partner.getId())
         .updateData(partner.toJson());
   }
@@ -51,6 +52,13 @@ class PartnerService {
   static Stream<QuerySnapshot> getPartners() {
     return FirestoreService.partnersReference().snapshots();
   }
+
+  static void loadPartners() {
+    getPartners().listen((QuerySnapshot event) {
+      loadFromDocumentList(event.documents);
+    });
+  }
+
 
   static void reset() {
     partners = [];

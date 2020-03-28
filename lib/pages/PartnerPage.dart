@@ -3,8 +3,9 @@ import 'package:savings_app/design/PaletteColors.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/PartnerService.dart';
 import 'package:savings_app/widgets/MyAppBar.dart';
-import '../widgets/SideMenu.dart';
+
 import '../widgets/PartnerItem.dart';
+import '../widgets/SideMenu.dart';
 
 class PartnerPage extends StatefulWidget {
   @override
@@ -12,32 +13,22 @@ class PartnerPage extends StatefulWidget {
 }
 
 class _PartnerPageState extends State<PartnerPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(text: 'Socios'),
       drawer: SideMenu(),
-      body: StreamBuilder(
-        stream: PartnerService.getPartners(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Text('Cargando...');
-          return ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (context, index) {
-              Partner partner =
-                  Partner.fromJson(snapshot.data.documents[index].data);
-              partner.setId(snapshot.data.documents[index].documentID);
-              return PartnerItem(
-                  partner: partner,
-                  onTap: () {
-                    Navigator.pushNamed(context, 'addPartner',
-                        arguments: partner);
-                  });
-            },
-          );
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: PartnerService.partners.length,
+        itemBuilder: (context, index) {
+          Partner partner = PartnerService.partners.elementAt(index);
+          return PartnerItem(
+              partner: partner,
+              onTap: () {
+                Navigator.pushNamed(context, 'addPartner', arguments: partner);
+              });
         },
       ),
       floatingActionButton: FloatingActionButton(

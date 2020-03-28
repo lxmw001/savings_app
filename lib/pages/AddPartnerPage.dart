@@ -63,8 +63,9 @@ class _AddPartnerPageState extends State<AddPartnerPage> {
                     child: Text("Guardar"),
                     onPressed: () {
                       this.key.currentState.save();
-                      PartnerService.createOrUpdate(partner);
-                      Navigator.pop(context);
+                      PartnerService.createOrUpdate(partner).then((_) {
+                        Navigator.pop(context, false);
+                      });
                     },
                   ),
                 )

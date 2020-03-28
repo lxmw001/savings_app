@@ -86,6 +86,14 @@ class PaymentService {
     }).toList();
   }
 
+  static double getNextMonthTotalPayments() {
+    var nextMonthPayments = payments.where((payment) {
+      return payment.getDate().month == (DateTime.now().month + 1);
+    }).toList();
+
+    return nextMonthPayments.fold(0, (total, Payment payment) => total + payment.getValue());
+  }
+
   static void updatePayment(Payment payment) {
     FirestoreService.paymentsReference()
       .document(payment.getId())
@@ -95,6 +103,12 @@ class PaymentService {
 
   static Stream<QuerySnapshot> getPayments() {
     return FirestoreService.paymentsReference().snapshots();
+  }
+
+  static void loadPayments() {
+    getPayments().listen((QuerySnapshot event) {
+      loadFromDocumentList(event.documents);
+    });
   }
 
   static void reset() {

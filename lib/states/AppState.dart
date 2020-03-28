@@ -39,6 +39,8 @@ class AppState with ChangeNotifier {
       await _getPeriods();
       await _getSettings();
       await _getSavingBank();
+      PaymentService.loadPayments();
+      PartnerService.loadPartners();
 
       _loading = false;
       _loggedIn = true;
