@@ -76,7 +76,13 @@ class PaymentService {
       var isPending = payment.getState() == PaymentState.PENDING;
       var isBefore = payment.getDate().month < now.month;
       var isCurrent = payment.getDate().month == now.month;
-      return isCurrent ? isCurrent: isBefore && isPending;
+      var ret =  isCurrent ? isCurrent: isBefore && isPending;
+//      if(partner.getId() == 'CBuaaG0tXMzrpgcg2m69' && ret) {
+//        print('Socio: ' + partner.getName());
+//        print('Payament ID ' + payment.getId().toString());
+//        print('Payament Value ' + payment.getValue().toString());
+//      }
+      return ret;
     }).toList();
   }
 
