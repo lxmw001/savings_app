@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:savings_app/design/PaletteColors.dart';
+import 'package:savings_app/services/SavingBankService.dart';
 
 import './MenuItem.dart';
 import '../states/AppState.dart';
@@ -63,6 +63,10 @@ class SideMenu extends StatelessWidget {
                       Navigator.pushNamed(context, 'settings');
                     })),
           ),
+          MenuItem(
+              text: 'Generate Summary',
+              icon: Icons.cached,
+              onTap: () => SavingBankService.regenerateData()),
           MenuItem(
               text: 'Salir',
               icon: Icons.exit_to_app,

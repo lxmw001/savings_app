@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:savings_app/design/PaletteColors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
 
-  MyAppBar({Key key, this.text}): super(key: key);
+  MyAppBar({Key key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

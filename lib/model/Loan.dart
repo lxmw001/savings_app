@@ -49,7 +49,6 @@ class Loan extends BasicModel with _$LoanLombok {
 
   static String loanToId(Loan loan) => loan?.getId();
 
-  /*Functions*/
   double calculateInterest() {
     return (value != null ? value : 0) * (interest.value / 100);
   }
@@ -57,11 +56,13 @@ class Loan extends BasicModel with _$LoanLombok {
   double calculateValueToPay() {
     valueToPay = value + (calculateInterest() * paymentsNumber);
     interestValue = valueToPay - value;
-    return valueToPay;
+    return valueToPay.ceilToDouble();
   }
 
   void calculatePaymentsValue() {
     this.paymentValue =
-        paymentsNumber != 0 ? calculateValueToPay() / paymentsNumber : 0;
+        paymentsNumber != 0
+          ? (calculateValueToPay() / paymentsNumber).ceilToDouble()
+          : 0;
   }
 }

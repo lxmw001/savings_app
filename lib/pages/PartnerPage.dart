@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:savings_app/design/PaletteColors.dart';
 import 'package:savings_app/model/Partner.dart';
 import 'package:savings_app/services/PartnerService.dart';
 import 'package:savings_app/widgets/MyAppBar.dart';

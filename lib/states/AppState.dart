@@ -8,6 +8,7 @@ import 'package:savings_app/model/Period.dart';
 import 'package:savings_app/model/SavingBank.dart';
 import 'package:savings_app/model/Settings.dart';
 import 'package:savings_app/services/FirestoreService.dart';
+import 'package:savings_app/services/LoanService.dart';
 import 'package:savings_app/services/PartnerService.dart';
 import 'package:savings_app/services/PaymentService.dart';
 import 'package:savings_app/services/PeriodService.dart';
@@ -41,6 +42,7 @@ class AppState with ChangeNotifier {
       await _getSavingBank();
       PaymentService.loadPayments();
       PartnerService.loadPartners();
+      LoanService.loadLoans();
 
       _loading = false;
       _loggedIn = true;

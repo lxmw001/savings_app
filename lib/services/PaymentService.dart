@@ -77,12 +77,24 @@ class PaymentService {
       var isBefore = payment.getDate().month < now.month;
       var isCurrent = payment.getDate().month == now.month;
       var ret =  isCurrent ? isCurrent: isBefore && isPending;
+//      if(payment.getState() == PaymentState.COMPLETE) {
+//        print('=========================');
+//        print('Payment id: ' + payment.getId());
+//        print('Payment value: ' + payment.getValue().toString());
+//        print('=========================');
+//      }
 //      if(partner.getId() == 'CBuaaG0tXMzrpgcg2m69' && ret) {
 //        print('Socio: ' + partner.getName());
 //        print('Payament ID ' + payment.getId().toString());
 //        print('Payament Value ' + payment.getValue().toString());
 //      }
       return ret;
+    }).toList();
+  }
+
+  static List<Payment> getCompletedPayments() {
+    return payments.where((payment) {
+      return payment.getState() == PaymentState.COMPLETE;
     }).toList();
   }
 
