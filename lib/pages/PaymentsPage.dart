@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savings_app/constants/PaymentState.dart';
 import 'package:savings_app/modals/PaymentModal.dart';
 import 'package:savings_app/model/Payment.dart';
 import 'package:savings_app/services/PaymentService.dart';
@@ -15,9 +16,16 @@ class _PaymentsPageState extends State<PaymentsPage> {
   List<Payment> payments = [];
 
   confirmPayment(Payment payment, index) {
+    payment.setState(PaymentState.COMPLETE);
     payments[index] = payment;
     PaymentService.updatePayment(payment);
     SavingBankService.updateSavingBank(payment.getValue());
+    setState(() {});
+  }
+  cancelPayment(Payment payment, index) {
+    payment.setState(PaymentState.CANCELED);
+    payments[index] = payment;
+    PaymentService.updatePayment(payment);
     setState(() {});
   }
 
@@ -36,7 +44,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
               payment: payment,
               onTap: () {
                 print('id: ' + payment.getId());
-                PaymentModal.show(context, payment, index, confirmPayment);
+                PaymentModal.show(context, payment, index, confirmPayment, cancelPayment);
               });
         },
       ),
