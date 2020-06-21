@@ -50,7 +50,7 @@ class Loan extends BasicModel with _$LoanLombok {
   static String loanToId(Loan loan) => loan?.getId();
 
   double calculateInterest() {
-    return (value != null ? value : 0) * (interest.value / 100);
+    return (value != null ? value : 0) * (interest.value / 100).ceilToDouble();
   }
 
   double calculateValueToPay() {
